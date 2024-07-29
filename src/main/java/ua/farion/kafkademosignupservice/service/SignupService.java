@@ -9,11 +9,11 @@ import ua.farion.kafkademosignupservice.dto.PlayerDto;
 @Service
 @RequiredArgsConstructor
 public class SignupService {
-    private final KafkaTemplate<String, String> kafkaTemplate;
+    private final KafkaTemplate<String, PlayerDto> kafkaTemplate;
 
     public UUID signup(PlayerDto playerDto) {
         UUID playerId = UUID.randomUUID();
-        kafkaTemplate.send("signup-topic", playerId.toString(), String.valueOf(playerDto));
+        kafkaTemplate.send("signup-topic", playerId.toString(), playerDto);
         return playerId;
     }
 }
